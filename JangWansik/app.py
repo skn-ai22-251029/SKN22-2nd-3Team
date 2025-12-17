@@ -9,6 +9,10 @@ import plotly.graph_objects as go
 import os
 import tensorflow as tf
 
+# --- [설정] 파일 경로 정의 ---
+# 모델과 메트릭 파일이 위치한 폴더명입니다.
+MODEL_DIR = '03_trained_model'
+
 st.set_page_config(
     page_title="Spotify Churn Insight AI",
     page_icon="🎵",
@@ -52,8 +56,9 @@ st.markdown(
 @st.cache_resource
 def load_ml_model():
     try:
-        # 이 모델은 get_best_model_info()에서 선정된 ML 모델의 파이프라인 (.pkl)입니다.
-        return joblib.load('models/spotify_churn_model.pkl')
+        # [수정됨] 경로를 MODEL_DIR 상수로 변경
+        model_path = os.path.join(MODEL_DIR, 'spotify_churn_model.pkl')
+        return joblib.load(model_path)
     except:
         return None
 
@@ -63,7 +68,8 @@ def load_dl_model_and_scaler():
     scaler = None
     
     try:
-        model_path = 'models/spotify_dl_model.h5'
+        # [수정됨] 경로를 MODEL_DIR 상수로 변경
+        model_path = os.path.join(MODEL_DIR, 'spotify_dl_model.h5')
         if os.path.exists(model_path):
             model = tf.keras.models.load_model(model_path)
     except Exception as e:
@@ -71,7 +77,8 @@ def load_dl_model_and_scaler():
         pass
 
     try:
-        scaler_path = 'models/dl_preprocessor.pkl'
+        # [수정됨] 경로를 MODEL_DIR 상수로 변경
+        scaler_path = os.path.join(MODEL_DIR, 'dl_preprocessor.pkl')
         if os.path.exists(scaler_path):
             scaler = joblib.load(scaler_path)
     except Exception as e:
@@ -82,7 +89,9 @@ def load_dl_model_and_scaler():
 
 def load_metrics():
     try:
-        with open('data/model_metrics.json', 'r') as f:
+        # [수정됨] model_metrics.json 파일도 03_trained_model 폴더로 이동했으므로 경로 수정
+        metrics_path = os.path.join(MODEL_DIR, 'model_metrics.json')
+        with open(metrics_path, 'r') as f:
             return json.load(f)
     except:
         return {}
@@ -249,7 +258,7 @@ def page_dashboard():
             plt.xticks(rotation=15)
             st.pyplot(fig)
         else:
-            st.error("data/model_metrics.json 파일을 찾을 수 없습니다.")
+            st.error("모델 성능 파일(model_metrics.json)을 찾을 수 없습니다.")
             
     with col2:
         st.info("💡 모델 선정 분석")
@@ -335,7 +344,7 @@ def page_prediction():
                 prob = model.predict_proba(input_data)[0, 1]
                 threshold = best_ml_threshold
             else:
-                st.error("ML 모델 파일(.pkl)을 찾을 수 없습니다. (train_ml_model.ipynb 실행 필요)")
+                st.error("ML 모델 파일(.pkl)을 찾을 수 없습니다.")
 
         elif model_choice == dl_label:
             dl_model, dl_scaler = load_dl_model_and_scaler()
@@ -355,7 +364,7 @@ def page_prediction():
                 except Exception as e:
                     st.error(f"DL 예측 중 오류 발생: {e}")
             else:
-                st.error("DL 모델(.h5) 또는 전처리기(.pkl)를 불러올 수 없습니다. (train_dl_model.ipynb 실행 필요)")
+                st.error("DL 모델(.h5) 또는 전처리기(.pkl)를 불러올 수 없습니다.")
 
         st.markdown("### 🎯 AI 예측 진단")
         
