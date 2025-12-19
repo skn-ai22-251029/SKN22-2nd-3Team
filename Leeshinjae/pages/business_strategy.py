@@ -193,7 +193,7 @@ with nav_cols[0]: # 좌측 끝 라인
         st.switch_page("Home.py")
 
 with nav_cols[14]: # 우측 끝 라인
-    if st.button("Next ➡️"):
+    if st.button("Back ➡️"):
         # 마지막 요약 페이지나 메인으로 연결
         st.switch_page("pages/ChurnCheck.py") 
 # ---------------------------------------------------------
