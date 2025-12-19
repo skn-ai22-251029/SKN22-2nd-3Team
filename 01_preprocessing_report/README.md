@@ -94,9 +94,7 @@ SKN22-2nd-3Team/
 | Generated | 10,000 × 12 | 31.79% |
 
 
-  ![타깃 분포(이탈/유지)](./images/3-1.png)
-
----
+  ![타깃 분포(이탈/유지)](../EDA/JeongSehwan/images/3-1.png)
 
 ## 2. 데이터 품질 점검(Generated)
 
@@ -109,8 +107,8 @@ Generated 데이터는 합성 과정(정규분포 기반 생성 변수 포함) �
   * `songs_played_per_day < 0`: **228건 (2.28%)** 
 
 
-  ![청취 시간 분포](./images/2-1.png)
-  ![일일 재생 곡 수 분포](./images/2-2.png)
+  ![청취 시간 분포](../EDA/JeongSehwan/images/2-1.png)
+  ![일일 재생 곡 수 분포](../EDA/JeongSehwan/images/2-2.png)
 
 ---
 
@@ -155,7 +153,7 @@ Generated 데이터는 합성 과정(정규분포 기반 생성 변수 포함) �
 → Generated에서는 요금제가 이탈을 가르는 강한 신호로 동작.
 
 
-  ![요금제별 이탈률(Origin vs Generated)](./images/fig04_subscription_churn_compare.png)
+  ![요금제별 이탈률(Origin vs Generated)](../EDA/JeongSehwan/images/fig04_subscription_churn_compare.png)
 
 ---
 
@@ -176,7 +174,7 @@ Generated 데이터는 합성 과정(정규분포 기반 생성 변수 포함) �
 → Generated에서는 offline이 **이탈 억제(보호 요인)**로 강하게 작동.
 
 
-  ![오프라인 사용 여부별 이탈률(Origin vs Generated)](./images/fig05_offline_churn_compare.png)
+  ![오프라인 사용 여부별 이탈률(Origin vs Generated)](../EDA/JeongSehwan/images/fig05_offline_churn_compare.png)
 
 ---
 
@@ -198,9 +196,9 @@ Generated 데이터는 합성 과정(정규분포 기반 생성 변수 포함) �
 * ads ≥ 16: 25.60% (차이 거의 없음) 
 
 
-  ![광고 노출 수 분포](./images/fig06_ads_dist.png)
-  ![광고 노출 수별 이탈률](./images/fig07_ads_churn_by_value.png)
-  ![ads 임계점 비교](./images/fig08_ads_threshold_compare.png)
+  ![광고 노출 수 분포](../EDA/JeongSehwan/images/fig06_ads_dist.png)
+  ![광고 노출 수별 이탈률](../EDA/JeongSehwan/images/fig07_ads_churn_by_value.png)
+  ![ads 임계점 비교](../EDA/JeongSehwan/images/fig08_ads_threshold_compare.png)
 
 ---
 
@@ -215,7 +213,7 @@ Generated에서는 “요금제”와 “오프라인”이 단독 효과뿐 아
 → Free/Student는 offline 여부에 따라 이탈률이 크게 변하며, Premium은 이미 낮아 효과가 제한적. 
 
 
-  ![요금제×오프라인 이탈률 히트맵](./images/fig09_sub_offline_heatmap.png)
+  ![요금제×오프라인 이탈률 히트맵](../EDA/JeongSehwan/images/fig09_sub_offline_heatmap.png)
 
 ### 5.1 Free인데 offline=1이 존재하는 예외 구간
 
@@ -247,7 +245,7 @@ Generated에서는 “요금제”와 “오프라인”이 단독 효과뿐 아
    → 오프라인 사용이 증가할수록 이탈이 감소하는 방향(보호 요인) 
 
 
-  ![상관관계 히트맵](./images/6-1.png)
+  ![상관관계 히트맵](../EDA/JeongSehwan/images/6-1.png)
 
 ---
 
