@@ -27,7 +27,23 @@
 
 ---
 
-## 3. 모델 학습 결과 및 비교
+---
+
+## 3. 모델 학습 구성 및 결과
+데이터 불균형 문제를 해결하기 위해 모든 모델에 별도의 가중치 설정이나 데이터 증강 기법을 적용했으며, 최적의 성능을 위해 하이퍼파라미터 튜닝을 진행했다.
+
+### 3.1 모델 별 주요 하이퍼파라미터 (Hyperparameters)
+각 모델은 `RandomizedSearchCV` 및 실험을 통해 도출된 최적의 파라미터로 설정되었다.
+
+| 모델 (Algorithm) | 핵심 파라미터 (Key Parameters) | 불균형 처리 (class_weight) |
+| :--- | :--- | :--- |
+| **Random Forest** | `n_estimators`: 300~500, `max_depth`: 10~20 | `balanced_subsample` |
+| **XGBoost** | `n_estimators`: 500~1000, `learning_rate`: 0.05 | `scale_pos_weight=2.0` |
+| **LightGBM** | `n_estimators`: 500~1000, `learning_rate`: 0.05 | `scale_pos_weight=2.0` |
+| **CatBoost** | `iterations`: 500~1000, `learning_rate`: 0.05 | `auto_class_weights='SqrtBalanced'` |
+| **Deep Learning (DNN)** | `Adam(lr=0.0005)`, `Batch=64`, `SiLU`, `LayerNorm` | `BorderlineSMOTE` (Training only) |
+
+### 3.2 모델 성능 비교 결과
 다양한 머신러닝 및 딥러닝 알고리즘을 테스트한 결과, **Random Forest**가 가장 우수한 F1-Score를 기록하여 최종 모델로 선정되었다.
 
 ![모델 성능 비교](images/model_performance_bar.png)
@@ -55,7 +71,11 @@
 | ![RF 혼동 행렬](images/ml_cm.png) | ![RF ROC 곡선](images/ml_roc.png) |
 
 ### 4.2 Deep Learning (DNN)
-- **비교 분석**: Swish(SiLU) 활성화 함수와 5계층 신경망(LayerNorm 적용)을 사용하여 복잡한 비선형 패턴을 학습했다. 정확도와 F1-Score는 RF보다 소폭 낮았으나, **재현율(Recall)** 은 가장 높아 잠재적 이탈자를 놓치지 않는 성능은 우수했다.
+- **구조적 특징**:
+  - **Architecture**: [512 -> 256 -> 128 -> 64 -> 32 -> 1]의 5계층 깊은 신경망 구조.
+  - **Regularization**: 층마다 `LayerNorm`과 `Dropout(0.2~0.4)`을 적용하여 과적합을 강력히 억제함.
+  - **Activation**: `SiLU (Swish)` 함수를 사용하여 ReLU보다 부드러운 그래디언트 흐름 유도.
+- **성능 분석**: 전체 정확도(Accuracy)는 가장 높았으나, F1-Score에서 RF에 근소하게 밀렸다. 하지만 재현율은 가장 높아 잠재적 이탈자를 놓치지 않는 특성을 보였다.
 - **성능 시각화**:
 
 | 혼동 행렬 (Confusion Matrix) | ROC 곡선 (ROC Curve) |
