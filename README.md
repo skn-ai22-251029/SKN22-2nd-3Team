@@ -146,7 +146,7 @@ Generated 데이터는 합성 과정 특성상 **비현실 값(음수)** 이 일
 ## 🛠 기술 스택 (Tech Stack)
 * **Language**: Python 3.9+
 * **Web Framework**: Streamlit
-* **ML/DL**: Scikit-learn, XGBoost, TensorFlow (Keras)
+* **ML/DL**: Scikit-learn, XGBoost, Pytorch
 * **Sampling**: Imbalanced-learn (BorderlineSMOTE)
 * **Data Analysis**: Pandas, NumPy
 * **Visualization**: Plotly, Matplotlib, Seaborn
